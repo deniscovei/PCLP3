@@ -1,6 +1,6 @@
 # README
 
-Name: `Covei Denis` \
+Name: `Covei Denis` and `Baldovin Răzvan-Mihai-Marian` \
 Group: `312CA`
 
 ## Virtual Memory Allocator
