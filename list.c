@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <string.h>
-
 #include "list.h"
 
 bool check_list(list_t *list)
@@ -15,7 +14,7 @@ list_t *init_list(size_t data_size)
 {
 	list_t *list = malloc(sizeof(list_t));
 	CHECK_MEMORY(list, MALLOC_FAILURE);
-	*list = (list_t){NULL, NULL, 0, data_size};
+	*list = (list_t){ NULL, NULL, 0, data_size };
 	return list;
 }
 
