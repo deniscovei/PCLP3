@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+
 #include "commands.h"
 
 int hash(char *key)
@@ -8,13 +9,19 @@ int hash(char *key)
 		return BADKEY;
 
 	set_t hash_table[] = {
-		{"ALLOC_ARENA", ALLOC_ARENA}, {"DEALLOC_ARENA", DEALLOC_ARENA},
-		{"ALLOC_BLOCK", ALLOC_BLOCK}, {"FREE_BLOCK", FREE_BLOCK},
-		{"READ", READ}, {"WRITE", WRITE}, {"PMAP", PMAP},
-		{"MPROTECT", MPROTECT}, {"PROT_NONE", PROT_NONE},
-		{"PROT_READ", PROT_READ}, {"PROT_WRITE", PROT_WRITE},
-		{"PROT_EXEC", PROT_EXEC}
-	};
+		{  "ALLOC_ARENA",   ALLOC_ARENA},
+		{"DEALLOC_ARENA", DEALLOC_ARENA},
+		{  "ALLOC_BLOCK",   ALLOC_BLOCK},
+		{   "FREE_BLOCK",    FREE_BLOCK},
+		{		 "READ",          READ},
+		{        "WRITE",         WRITE},
+		{		 "PMAP",          PMAP},
+		{     "MPROTECT",      MPROTECT},
+		{    "PROT_NONE",     PROT_NONE},
+		{    "PROT_READ",     PROT_READ},
+		{   "PROT_WRITE",    PROT_WRITE},
+		{    "PROT_EXEC",     PROT_EXEC}
+    };
 
 	int count = sizeof(hash_table) / sizeof(set_t);
 

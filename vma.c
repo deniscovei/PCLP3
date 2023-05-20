@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
-#include "vma.h"
+
 #include "commands.h"
+#include "vma.h"
 
 arena_t *alloc_arena(const size_t size)
 {
@@ -35,8 +36,7 @@ void dealloc_arena(arena_t *arena)
 
 bool is_inside(add_t middle_address, add_t left_address, add_t right_address)
 {
-	return left_address <= middle_address &&
-		middle_address < right_address;
+	return left_address <= middle_address && middle_address < right_address;
 }
 
 perm_t set_permissions(const char perm_string[])
@@ -194,12 +194,12 @@ metadata_t search_address(arena_t *arena, add_t address)
 			// check if a corresponding miniblock is found
 			if (miniblock->start_address <= address &&
 				address < miniblock->start_address + miniblock->size) {
-				return (metadata_t) { it, jt, miniblock_no };
+				return (metadata_t){it, jt, miniblock_no};
 			}
 		}
 	}
 
-	return (metadata_t) { NULL, NULL, 0 };
+	return (metadata_t){NULL, NULL, 0};
 }
 
 void free_block(arena_t *arena, const add_t address)
@@ -244,7 +244,8 @@ void free_block(arena_t *arena, const add_t address)
 			erase(arena->block_list, block_node, clear_block);
 	} else {
 		block_t new_block = init_block(address + miniblock->size,
-			block->start_address + block->size - address - miniblock->size);
+									   block->start_address + block->size -
+										   address - miniblock->size);
 
 		assign_members(new_block.miniblock_list, miniblock_node->next,
 					   block->miniblock_list->end,
@@ -306,8 +307,8 @@ void read(arena_t *arena, add_t address, size_t size)
 	}
 
 	miniblock_t *first_miniblock = (miniblock_t *)metadata.miniblock_node->data;
-	size_t max_read_size = first_miniblock->start_address +
-					   first_miniblock->size - address;
+	size_t max_read_size =
+		first_miniblock->start_address + first_miniblock->size - address;
 	size_t address_jump = max_read_size;
 
 	// check permissions of first block
@@ -335,12 +336,15 @@ void read(arena_t *arena, add_t address, size_t size)
 	size_t read_size = min(max_read_size, size);
 
 	fwrite(first_miniblock->rw_buffer + address -
-		   first_miniblock->start_address, sizeof(char),
+			   first_miniblock->start_address,
+		   sizeof(char),
 		   min(min(read_size, first_miniblock->start_address +
-		   first_miniblock->size - address),
-		   length(first_miniblock->rw_buffer + address -
-		   first_miniblock->start_address, first_miniblock->start_address +
-		   first_miniblock->size - address)), stdout);
+								  first_miniblock->size - address),
+			   length(first_miniblock->rw_buffer + address -
+						  first_miniblock->start_address,
+					  first_miniblock->start_address + first_miniblock->size -
+						  address)),
+		   stdout);
 
 	// copy data in available miniblocks
 	for (node_t *it = metadata.miniblock_node->next; it; it = it->next) {
@@ -352,7 +356,8 @@ void read(arena_t *arena, add_t address, size_t size)
 		miniblock_t *miniblock = (miniblock_t *)it->data;
 		fwrite(miniblock->rw_buffer, sizeof(char),
 			   min(min(miniblock->size, read_size - address_jump),
-				   length(miniblock->rw_buffer, miniblock->size)), stdout);
+				   length(miniblock->rw_buffer, miniblock->size)),
+			   stdout);
 		address_jump += miniblock->size;
 	}
 
@@ -370,8 +375,8 @@ void write(arena_t *arena, const add_t address, const size_t size, void *data)
 	}
 
 	miniblock_t *first_miniblock = (miniblock_t *)metadata.miniblock_node->data;
-	size_t max_write_size = first_miniblock->start_address +
-						first_miniblock->size - address;
+	size_t max_write_size =
+		first_miniblock->start_address + first_miniblock->size - address;
 	size_t address_jump = max_write_size;
 
 	// check permissions of first block
@@ -398,9 +403,11 @@ void write(arena_t *arena, const add_t address, const size_t size, void *data)
 	if (max_write_size < size)
 		DISPLAY_WARNING(WARNING_WRITE_SIZE, max_write_size);
 
-	memcpy(first_miniblock->rw_buffer + address -
-		   first_miniblock->start_address, data, min(write_size,
-		   first_miniblock->start_address + first_miniblock->size - address));
+	memcpy(
+		first_miniblock->rw_buffer + address - first_miniblock->start_address,
+		data,
+		min(write_size,
+			first_miniblock->start_address + first_miniblock->size - address));
 
 	// copy data in available miniblocks
 	for (node_t *it = metadata.miniblock_node->next; it; it = it->next) {
@@ -475,8 +482,7 @@ perm_t get_mask(char perm_keys_merged[])
 		next_ptr = strchr(curr_ptr + 1, '|');
 
 		cpy = curr_ptr + (curr_ptr[0] == '|' ? 2 : 1);
-		lenght = (next_ptr ? (size_t)(next_ptr - cpy - 1) :
-				  strlen((curr_ptr)));
+		lenght = (next_ptr ? (size_t)(next_ptr - cpy - 1) : strlen((curr_ptr)));
 		strncpy(perm_key, cpy, lenght);
 		perm_key[lenght] = '\0';
 

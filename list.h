@@ -1,6 +1,7 @@
 #pragma once
 #include <stdbool.h>
 #include <stddef.h>
+
 #include "errors.h"
 
 typedef struct node_t {
@@ -14,7 +15,7 @@ typedef struct list_t {
 } list_t;
 
 /* ==========================================================================
-   Eroors
+   Errors
    ==========================================================================*/
 
 // check if the list is initialised
