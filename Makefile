@@ -12,7 +12,7 @@ build: $(OBJS)
 	$(CC) $(CFLAGS) -o vma $(OBJS)
 
 pack:
-	zip -FSr 312CA_CoveiDenis_SD.zip README README.md Makefile *.c *.h
+	zip -FSr 312CA_Baldovin_Covei_PCLP3.zip README.md Makefile *.c *.h
 
 clean:
 	rm -f $(TARGETS) $(OBJS)
