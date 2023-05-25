@@ -39,7 +39,7 @@ DEALLOC_ARENA
 ALLOC_BLOCK <address> <size>
 ```
 
-4. Free the miniblock starting at certain `address` in the arena.
+4. Free the miniblock starting at a certain `address` in the arena.
 ```console
 FREE_BLOCK <address>
 ```
@@ -77,5 +77,3 @@ Example (set `R-X` permissions):
 ```console
 MPROTECT 100 PROT_READ | PROT_EXEC
 ```
-
-
