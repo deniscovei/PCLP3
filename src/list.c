@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "list.h"
+#include "../include/list.h"
 
 bool check_list(list_t *list)
 {

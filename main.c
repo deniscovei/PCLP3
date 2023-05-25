@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "commands.h"
-#include "vma.h"
+#include "./include/commands.h"
+#include "./include/vma.h"
 
 int main(void)
 {

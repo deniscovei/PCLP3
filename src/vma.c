@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "commands.h"
-#include "vma.h"
+#include "../include/commands.h"
+#include "../include/vma.h"
 
 arena_t *alloc_arena(const size_t size)
 {

@@ -1,20 +1,21 @@
 CC=gcc
 CFLAGS=-g -Wall -Wextra -std=c99
 
-SRCS=$(wildcard *.c)
+SRCS=$(wildcard ./src/*.c)
+SRCS+=main.c
 OBJS=$(SRCS:%.c=%.o)
 TARGETS=$(OBJS:%.o=%)
 
 run_vma: build
-	./vma
+	./bin/vma
 
 build: $(OBJS)
-	$(CC) $(CFLAGS) -o vma $(OBJS)
+	$(CC) $(CFLAGS) -o ./bin/vma $(OBJS)
 
 pack:
 	zip -FSr 312CA_Baldovin_Covei_PCLP3.zip README.md Makefile *.c *.h
 
 clean:
-	rm -f $(TARGETS) $(OBJS)
+	rm -f $(TARGETS) $(OBJS) ./bin/vma
 
 .PHONY: pack clean
